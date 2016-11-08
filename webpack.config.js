@@ -10,18 +10,20 @@ const HotModuleReplaceMentPlugin = new webpack.HotModuleReplacementPlugin();
 module.exports = {
     devtool: 'eval-source-map',
     entry: [
+        'react-hot-loader/patch',
+        'webpack-hot-middleware/client',
         './app/index.js'
     ],
     module: {
         loaders: [
             {
                 test: /\.jsx?$/,
-                loader: 'babel-loader',
+                loader: 'babel',
                 exclude: /node_modules/
             },
             {
                 test: /\.scss$/,
-                loaders: ["style", "css", "sass"]
+                loaders: ['style', 'css', 'sass']
             }
         ]
     },
@@ -31,7 +33,7 @@ module.exports = {
     },
     plugins: [HTMLWebpackPluginConfig, HotModuleReplaceMentPlugin],
     resolve: {
-        extensions: ['', '.js', '.json', '.jsx'] 
+        extensions: ['', '.js', '.json', '.jsx']
     },
     devServer: {
         contentBase: __dirname + '/app',

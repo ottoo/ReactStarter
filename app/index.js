@@ -1,14 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { AppContainer } from 'react-hot-loader';
 
-var HelloWorld = React.createClass({
-  render: function(){
-    return (
-      <div>
-        Hello World!
-      </div>
-    )
-  }
-});
+import App from './views/App';
 
-ReactDOM.render(<HelloWorld />, document.getElementById('app'));
+const rootEl = document.getElementById('app');
+
+ReactDOM.render(
+  <AppContainer>
+    <App/>
+  </AppContainer>,
+  rootEl
+);
+
+if (module.hot) {
+  module.hot.accept('./views/App', () => {
+    const NextApp = require('./views/App').default;
+    ReactDOM.render(
+      <AppContainer>
+         <NextApp />
+      </AppContainer>,
+      rootEl
+    );
+  });
+}
